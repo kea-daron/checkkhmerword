@@ -1,12 +1,5 @@
 import "server-only";
-import {
-  KHMER_DIGIT,
-  hasKhmer,
-  isKhmerWord,
-  normalizeKey,
-  stripInvisible,
-  toCodePoints,
-} from "@/lib/khmer/normalize";
+import { KHMER_DIGIT, hasKhmer, isKhmerWord, normalizeKey, toCodePoints } from "@/lib/khmer/normalize";
 import { getStore } from "./store";
 import { suggest } from "./suggest";
 import type { CheckPart, CheckResponse, CheckSummary, CheckToken, Suggestion } from "./types";
@@ -29,7 +22,8 @@ type Unit = { text: string; status: "dict" | "sbbic" | "unknown"; ids?: number[]
 function classify(seg: Intl.SegmentData): Raw {
   const text = seg.segment;
   if (!seg.isWordLike) {
-    if (/^\s+$/.test(text)) return { text, kind: "space" };
+    // Zero-width spaces are commonly typed between Khmer words; treat them as spaces.
+    if (/^[\s​‌‍﻿]+$/.test(text)) return { text, kind: "space" };
     return { text, kind: "punct" };
   }
   if (KHMER_DIGIT.test(text) || !hasKhmer(text)) return { text, kind: "other" };
@@ -246,7 +240,8 @@ function closeHeadwords(text: string, maxDistance?: number): Suggestion[] {
 }
 
 export function checkText(input: string): CheckResponse {
-  const text = stripInvisible(input.normalize("NFC")).slice(0, MAX_TEXT);
+  // Keep the text byte-for-byte so token offsets map back onto the editor.
+  const text = input.slice(0, MAX_TEXT);
 
   const raws: Raw[] = [];
   for (const seg of getSegmenter().segment(text)) raws.push(classify(seg));

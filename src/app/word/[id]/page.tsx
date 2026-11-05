@@ -87,7 +87,7 @@ async function Entry({ id }: { id: string }) {
               )}
               <span className="text-ink-3">Entry #{entry.id}</span>
               <Link
-                href={`/check?text=${encodeURIComponent(entry.word)}`}
+                href={`/?text=${encodeURIComponent(entry.word)}`}
                 className="text-accent underline decoration-dotted underline-offset-4 hover:decoration-solid"
               >
                 Check in text

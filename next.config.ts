@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/*": ["./data/generated/**/*"],
   },
+  // The checker moved to the home page; keep old links working (query is preserved).
+  async redirects() {
+    return [{ source: "/check", destination: "/", permanent: false }];
+  },
 };
 
 export default nextConfig;

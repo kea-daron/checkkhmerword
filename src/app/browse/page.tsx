@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ModeTabs } from "@/components/ModeTabs";
 import { KHMER_CONSONANTS, KHMER_INDEPENDENT_VOWELS } from "@/lib/khmer/normalize";
 import { getLetters } from "@/lib/dict/store";
 
@@ -16,10 +17,12 @@ export default function BrowsePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+      <div className="mb-8">
+        <ModeTabs active="browse" />
+      </div>
       <header className="mb-8">
-        <p className="km-ui text-sm font-medium uppercase tracking-[0.2em] text-accent">រុករកតាមអក្សរ</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Browse by letter</h1>
-        <p className="mt-2 text-ink-2">Entries are grouped by their first consonant or independent vowel, in dictionary order.</p>
+        <h1 className="km text-3xl font-semibold tracking-tight sm:text-4xl">រុករកតាមអក្សរ</h1>
+        <p className="mt-2 text-ink-2">Browse by letter. Entries are grouped by their first consonant or independent vowel, in dictionary order.</p>
       </header>
 
       <LetterGrid title="Consonants · ព្យញ្ជនៈ" letters={consonants} counts={counts} />

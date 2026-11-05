@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const LINKS = [
-  { href: "/", en: "Search", km: "ស្វែងរក" },
-  { href: "/check", en: "Check text", km: "ពិនិត្យអត្ថបទ" },
-  { href: "/browse", en: "Browse", km: "រុករក" },
-  { href: "/about", en: "About", km: "អំពី" },
+  { href: "/", km: "ពិនិត្យអក្ខរាវិរុទ្ធ", en: "Spell check", match: (p: string) => p === "/" },
+  { href: "/search", km: "វចនានុក្រម", en: "Dictionary", match: (p: string) => p.startsWith("/search") || p.startsWith("/word") },
+  { href: "/browse", km: "រុករក", en: "Browse", match: (p: string) => p.startsWith("/browse") },
+  { href: "/about", km: "អំពី", en: "About", match: (p: string) => p.startsWith("/about") },
 ] as const;
 
 export function NavLinks() {
@@ -15,18 +15,18 @@ export function NavLinks() {
   return (
     <nav aria-label="Main" className="flex items-center gap-1 text-sm">
       {LINKS.map((l) => {
-        const active = l.href === "/" ? pathname === "/" || pathname.startsWith("/word") : pathname.startsWith(l.href);
+        const active = l.match(pathname);
         return (
           <Link
             key={l.href}
             href={l.href}
+            title={l.en}
             aria-current={active ? "page" : undefined}
-            className={`rounded-md px-2.5 py-1.5 transition-colors sm:px-3 ${
-              active ? "bg-paper-3 text-ink" : "text-ink-2 hover:bg-paper-2 hover:text-ink"
+            className={`km-ui rounded-md px-2.5 py-1.5 text-[15px] transition-colors sm:px-3 ${
+              active ? "bg-paper-3 font-medium text-ink" : "text-ink-2 hover:bg-paper-2 hover:text-ink"
             }`}
           >
-            <span className="hidden sm:inline">{l.en}</span>
-            <span className="km-ui sm:hidden">{l.km}</span>
+            {l.km}
           </Link>
         );
       })}

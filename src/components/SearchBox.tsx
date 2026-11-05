@@ -180,7 +180,7 @@ export function SearchBox({ autoFocus = true }: { autoFocus?: boolean }) {
               <p className="km text-lg">រកមិនឃើញ</p>
               <p className="mt-1 text-sm text-ink-2">
                 No entry matches <span className="km text-ink">{data.query}</span>. Try{" "}
-                <Link href={`/check?text=${encodeURIComponent(data.query)}`} className="text-accent underline underline-offset-4">
+                <Link href={`/?text=${encodeURIComponent(data.query)}`} className="text-accent underline underline-offset-4">
                   checking it as text
                 </Link>{" "}
                 for spelling suggestions.
