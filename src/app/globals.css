@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — warm paper & ink, inspired by the 1967 printed edition */
+/* ------------------------------------------------------------------ */
+:root {
+  --paper: #fbf7ef;
+  --paper-2: #f4eee1;
+  --paper-3: #ebe3d1;
+  --ink: #211a13;
+  --ink-2: #5c5247;
+  --ink-3: #8b8071;
+  --line: #e3dac8;
+  --line-strong: #cdc1a8;
+
+  --accent: #b8471b;
+  --accent-strong: #933512;
+  --accent-ink: #ffffff;
+  --accent-soft: #f8e4d7;
+
+  --ok: #2d7a4f;
+  --ok-soft: #dff1e5;
+  --info: #2b6cb0;
+  --info-soft: #dfeaf8;
+  --warn: #a8700d;
+  --warn-soft: #fbeecf;
+  --bad: #b3232b;
+  --bad-soft: #f9dcde;
+
+  --shadow: 0 1px 2px rgb(33 26 19 / 0.06), 0 8px 24px -12px rgb(33 26 19 / 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #15110d;
+    --paper-2: #1e1812;
+    --paper-3: #292118;
+    --ink: #f1e9db;
+    --ink-2: #b7aa97;
+    --ink-3: #85796a;
+    --line: #342b21;
+    --line-strong: #4a3e30;
+
+    --accent: #e4834f;
+    --accent-strong: #f09a6b;
+    --accent-ink: #1a110b;
+    --accent-soft: #3a2518;
+
+    --ok: #74c793;
+    --ok-soft: #1c3627;
+    --info: #7fb3ec;
+    --info-soft: #1a2b40;
+    --warn: #e3b24f;
+    --warn-soft: #3a2e12;
+    --bad: #f0747c;
+    --bad-soft: #3f1b1e;
+
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 30px -12px rgb(0 0 0 / 0.6);
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+
+  --font-ui: var(--font-kantumruy), "Kantumruy Pro", "Noto Sans Khmer", system-ui, sans-serif;
+  --font-km: var(--font-noto-serif-khmer), "Noto Serif Khmer", "Khmer OS Muol Light", serif;
+
+  --shadow-card: var(--shadow);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Khmer stacks consonants vertically; it needs generous line height. */
+.km {
+  font-family: var(--font-km);
+  line-height: 1.95;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.km-ui {
+  line-height: 1.8;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+/* Subtle paper texture: a faint ruled line at the very top of the page. */
+.rule {
+  background-image: linear-gradient(to right, transparent, var(--line-strong), transparent);
+  height: 1px;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    animation: none;
+  }
+}
