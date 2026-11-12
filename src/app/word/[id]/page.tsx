@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { cacheLife } from "next/cache";
 import { DefinitionView } from "@/components/DefinitionView";
+import { KhmerDictCard } from "@/components/KhmerDictCard";
 import { PosBadge } from "@/components/PosBadge";
 import { excerpt } from "@/lib/dict/definition";
 import { firstLetter } from "@/lib/khmer/normalize";
@@ -139,6 +140,7 @@ async function Entry({ id }: { id: string }) {
               </p>
             )}
           </div>
+          <KhmerDictCard word={entry.word} />
           <div className="rounded-2xl border border-line bg-paper-2 p-4">
             <p className="font-semibold text-ink">JSON</p>
             <p className="mt-1 break-all font-mono text-xs text-ink-2">

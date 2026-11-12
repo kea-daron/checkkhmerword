@@ -29,7 +29,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="km" className={`${ui.variable} ${khmerSerif.variable} h-full antialiased`}>
+    <html lang="km" className={`${ui.variable} ${khmerSerif.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        {/* Apply the saved theme before first paint so dark mode doesn't flash white. Defaults to light. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <SiteHeader />
         <main className="flex-1 w-full">{children}</main>

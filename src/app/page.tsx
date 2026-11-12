@@ -3,9 +3,11 @@ import { Suspense } from "react";
 import { ModeTabs } from "@/components/ModeTabs";
 import { SpellEditor } from "@/components/SpellEditor";
 import { getStore } from "@/lib/dict/store";
+import { getPhraseMeta } from "@/lib/context/store";
 
 export default function HomePage() {
   const { meta } = getStore();
+  const phrases = getPhraseMeta();
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
       <section className="pt-10 pb-6 text-center sm:pt-14">
@@ -13,7 +15,10 @@ export default function HomePage() {
         <p className="km-ui mt-3 text-base text-ink-2 sm:text-lg">
           តាមវចនានុក្រមខ្មែរ សម្ដេចព្រះសង្ឃរាជ ជួន ណាត (ពុទ្ធសាសនបណ្ឌិត្យ ១៩៦៧) · {meta.entries.toLocaleString()} ពាក្យ
         </p>
-        <p className="mt-1 text-sm text-ink-3">Khmer spell check against the Chuon Nath Dictionary. Words not in the dictionary are underlined in red.</p>
+        <p className="km-ui mt-1 text-sm text-ink-3">
+          ពិនិត្យអក្ខរាវិរុទ្ធ និងវេយ្យាករណ៍ខ្មែរ។ ពាក្យដែលមិនមានក្នុងវចនានុក្រម ជួន ណាត ត្រូវបានគូសបន្ទាត់ពណ៌ក្រហម; កំហុសវេយ្យាករណ៍ ជម្រើសពាក្យ
+          និងវណ្ណយុត្តិ តាមច្បាប់ SBBIC ពណ៌ខៀវ; ពាក្យត្រឹមត្រូវ តែមិនសមនឹងឃ្លា ពណ៌លឿង។
+        </p>
       </section>
 
       <div className="mb-6">
@@ -24,7 +29,7 @@ export default function HomePage() {
         <SpellEditor />
       </Suspense>
 
-      <section className="mt-12 grid gap-6 border-t border-line pt-8 text-sm text-ink-2 sm:grid-cols-3">
+      <section className="mt-12 grid gap-6 border-t border-line pt-8 text-sm text-ink-2 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="km-ui font-semibold text-ink">ពិនិត្យភ្លាមៗពេលវាយ</p>
           <p className="km-ui mt-1">
@@ -32,10 +37,23 @@ export default function HomePage() {
           </p>
         </div>
         <div>
-          <p className="km-ui font-semibold text-ink">អត់ឱនចំពោះការវាយខុសតូចតាច</p>
+          <p className="km-ui font-semibold text-ink">ពិនិត្យវេយ្យាករណ៍តាមច្បាប់ SBBIC</p>
           <p className="km-ui mt-1">
-            ដកឃ្លាមិនឃើញ, លំដាប់ <span className="km">ាំ/ំា</span>, <span className="km">េី/ើ</span>, <span className="km">្ដ/្ត</span> និង{" "}
-            <span className="km">ឲ/ឱ</span> ត្រូវបានធ្វើឲ្យស្មើគ្នាដោយស្វ័យប្រវត្តិ។
+            និង/នឹង, ចង់/ចង់បាន, លក្ខណនាម នាក់, ទេ ចុងប្រយោគបដិសេធ, សញ្ញា ? ក្នុងសំណួរ, ដកឃ្លាមុន ។ និង ៗ ជាដើម ត្រូវបានគូសពណ៌ខៀវ
+            ជាមួយការពន្យល់ និងការកែមួយចុច ·{" "}
+            <Link href="/about#grammar" className="text-accent underline underline-offset-4">
+              បញ្ជីច្បាប់
+            </Link>
+          </p>
+        </div>
+        <div>
+          <p className="km-ui font-semibold text-ink">យល់ឃ្លា មិនមែនត្រឹមតែពាក្យ</p>
+          <p className="km-ui mt-1">
+            ពាក្យដែលមានក្នុងវចនានុក្រម តែមិនត្រូវនឹងពាក្យជុំវិញវា (ដូចជា ការបណ្ដុះបណ្ដា → ការបណ្ដុះបណ្ដាល) ត្រូវបានគូសពណ៌លឿង ដោយប្រៀបធៀបគូពាក្យជាមួយបញ្ជីពាក្យផ្សំ
+            {phrases ? ` និងស្ថិតិពីអត្ថបទខ្មែរ ${(phrases.tokens / 1e6).toLocaleString("en", { maximumFractionDigits: 1 })} លានពាក្យ` : ""} ·{" "}
+            <Link href="/about#phrases" className="text-accent underline underline-offset-4">
+              របៀបដែលវាដឹង
+            </Link>
           </p>
         </div>
         <div>

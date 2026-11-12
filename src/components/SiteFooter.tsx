@@ -25,6 +25,13 @@ export function SiteFooter() {
             .
           </p>
           <p>Dictionary data licensed under LGPL 2.1.</p>
+          <p>
+            English–Khmer entries, pronunciations and examples from{" "}
+            <a className="underline decoration-line-strong underline-offset-4 hover:text-ink" href="https://khmerdict.com/" rel="noopener noreferrer" target="_blank">
+              khmerdict.com
+            </a>
+            .
+          </p>
         </div>
         <div className="space-y-2">
           <p className="font-semibold text-ink">Links</p>
